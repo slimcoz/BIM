@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fiora Tattoos</title>
+    <!-- Importar fuentes para el texto y FontAwesome para los íconos de tatuajes -->
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Configuración base: Colores negro y morado */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #07000a; /* Negro con un levísimo toque oscuro de morado */
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #fff;
+        }
+
+        /* Contenedor de los tatuajes */
+        .tattoo-scene {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* La escena de tatuajes desaparece después de 6 segundos */
+            animation: fadeOutScene 2s ease-in-out forwards;
+            animation-delay: 5.5s;
+        }
+
+        /* Estilo de los íconos de tatuaje */
+        .tattoo-icon {
+            position: absolute;
+            font-size: 5rem;
+            color: #1a1a1a;
+            opacity: 0;
+            /* Efecto neón morado */
+            text-shadow: 0 0 10px #8a2be2, 0 0 20px #9400d3, 0 0 30px #4b0082;
+            animation: floatIcon 4s ease-in-out forwards;
+        }
+
+        /* Posiciones y retrasos para cada ícono */
+        .icon1 { top: 20%; left: 20%; font-size: 4rem; animation-delay: 0.5s; } /* Ancla */
+        .icon2 { top: 60%; left: 75%; font-size: 6rem; animation-delay: 1.2s; } /* Calavera */
+        .icon3 { top: 30%; left: 70%; font-size: 4.5rem; animation-delay: 1.8s; } /* Luna */
+        .icon4 { top: 70%; left: 25%; font-size: 5rem; animation-delay: 2.5s; } /* Telaraña / Hoja */
+        .icon5 { top: 40%; left: 45%; font-size: 7rem; animation-delay: 3s; } /* Diamante / Centro */
+
+        /* Animación para que los tatuajes floten y aparezcan */
+        @keyframes floatIcon {
+            0% {
+                transform: translateY(50px) scale(0.5) rotate(-20deg);
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+                color: #2c0042;
+                transform: translateY(0) scale(1.2) rotate(10deg);
+                text-shadow: 0 0 20px #bc13fe, 0 0 40px #8a2be2;
+            }
+            100% {
+                transform: translateY(-20px) scale(1) rotate(0deg);
+                opacity: 1;
+                color: #1a1a1a;
+            }
+        }
+
+        /* Animación para ocultar los tatuajes */
+        @keyframes fadeOutScene {
+            0% { opacity: 1; }
+            100% { opacity: 0; visibility: hidden; }
+        }
+
+        /* --- Estilo del Nombre Fiora --- */
+        .fiora-name {
+            position: absolute;
+            font-family: 'Great Vibes', cursive; /* Tipografía estilo tatuaje script */
+            font-size: 8rem;
+            color: #d1b3ff;
+            opacity: 0;
+            transform: scale(0.2);
+            /* Sombra brillante morada */
+            text-shadow: 0 0 15px #bc13fe, 0 0 30px #8a2be2, 0 0 50px #9400d3, 0 0 100px #4b0082;
+            animation: revealName 4s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+            animation-delay: 7s; /* Aparece después de que los tatuajes se van */
+            z-index: 10;
+        }
+
+        /* Animación épica para el nombre */
+        @keyframes revealName {
+            0% {
+                opacity: 0;
+                transform: scale(0.2);
+                letter-spacing: -20px;
+                filter: blur(10px);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.1);
+                letter-spacing: 5px;
+                filter: blur(0px);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+                letter-spacing: 2px;
+                filter: blur(0px);
+            }
+        }
+
+        /* Partículas de polvo brillante en el fondo */
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(#8a2be2 1px, transparent 1px);
+            background-size: 50px 50px;
+            opacity: 0.1;
+            animation: drift 20s linear infinite;
+        }
+
+        @keyframes drift {
+            0% { background-position: 0 0; }
+            100% { background-position: 100px 100px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Fondo sutil texturizado -->
+    <div class="particles"></div>
+
+    <!-- Escena inicial de los tatuajes -->
+    <div class="tattoo-scene">
+        <i class="fa-solid fa-anchor tattoo-icon icon1"></i>
+        <i class="fa-solid fa-skull-crossbones tattoo-icon icon2"></i>
+        <i class="fa-solid fa-moon tattoo-icon icon3"></i>
+        <i class="fa-solid fa-leaf tattoo-icon icon4"></i>
+        <i class="fa-regular fa-gem tattoo-icon icon5"></i>
+    </div>
+
+    <!-- Nombre Final -->
+    <div class="fiora-name">Fiora</div>
+
+</body>
+</html>
