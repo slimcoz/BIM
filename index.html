@@ -3,151 +3,299 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fiora Tattoos</title>
-    <!-- Importar fuentes para el texto y FontAwesome para los íconos de tatuajes -->
+    <title>Fiora Tattoos - Experiencia Visual</title>
+    <!-- Fuentes para la tipografía -->
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Íconos de tatuajes -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* Configuración base: Colores negro y morado */
+        /* ================= BASE ================= */
         body {
             margin: 0;
             padding: 0;
-            background-color: #07000a; /* Negro con un levísimo toque oscuro de morado */
+            background-color: #030005; /* Negro aún más profundo */
             overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             height: 100vh;
             color: #fff;
+            cursor: crosshair; /* Cursor estilo precisión/tatuador */
+            font-family: 'Cinzel', serif;
         }
 
-        /* Contenedor de los tatuajes */
+        /* ================= FONDO DE HUMO Y NIEBLA ================= */
+        .smoke-container {
+            position: absolute;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+            overflow: hidden;
+        }
+        
+        .smoke {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(138,43,226,0.15) 0%, rgba(0,0,0,0) 70%);
+            border-radius: 50%;
+            filter: blur(40px);
+            animation: moveSmoke 15s infinite alternate ease-in-out;
+        }
+
+        .smoke:nth-child(1) { top: -10%; left: -10%; width: 50vw; height: 50vw; animation-delay: 0s; }
+        .smoke:nth-child(2) { bottom: -20%; right: -10%; width: 60vw; height: 60vw; background: radial-gradient(circle, rgba(188,19,254,0.1) 0%, rgba(0,0,0,0) 70%); animation-delay: -5s; }
+        .smoke:nth-child(3) { top: 40%; left: 30%; width: 40vw; height: 40vw; background: radial-gradient(circle, rgba(75,0,130,0.2) 0%, rgba(0,0,0,0) 70%); animation-delay: -10s; }
+
+        @keyframes moveSmoke {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(100px, -50px) scale(1.2); }
+        }
+
+        /* ================= CÍRCULOS GEOMÉTRICOS (Estilo Mandala/Tattoo) ================= */
+        .geometry-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            border: 1px solid rgba(138, 43, 226, 0.2);
+            z-index: 1;
+            opacity: 0;
+            animation: spinFade 6s ease-in-out forwards;
+        }
+        .ring-1 { width: 300px; height: 300px; border: 2px dashed rgba(188, 19, 254, 0.4); animation-duration: 7s; }
+        .ring-2 { width: 450px; height: 450px; border-top: 2px solid #8a2be2; animation-direction: reverse; animation-duration: 6s; }
+        .ring-3 { width: 600px; height: 600px; border: 1px dotted rgba(148, 0, 211, 0.3); animation-duration: 8s; }
+
+        @keyframes spinFade {
+            0% { transform: translate(-50%, -50%) rotate(0deg) scale(0); opacity: 0; }
+            30% { opacity: 1; }
+            70% { opacity: 1; transform: translate(-50%, -50%) rotate(180deg) scale(1); }
+            100% { transform: translate(-50%, -50%) rotate(360deg) scale(1.5); opacity: 0; }
+        }
+
+        /* ================= ESCENA DE TATUAJES (Íconos flotantes) ================= */
         .tattoo-scene {
             position: absolute;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            /* La escena de tatuajes desaparece después de 6 segundos */
-            animation: fadeOutScene 2s ease-in-out forwards;
-            animation-delay: 5.5s;
+            width: 100vw;
+            height: 100vh;
+            z-index: 2;
         }
 
-        /* Estilo de los íconos de tatuaje */
         .tattoo-icon {
             position: absolute;
-            font-size: 5rem;
-            color: #1a1a1a;
+            font-size: 3rem;
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(188, 19, 254, 0.5); /* Estilo de dibujo/boceto */
             opacity: 0;
-            /* Efecto neón morado */
-            text-shadow: 0 0 10px #8a2be2, 0 0 20px #9400d3, 0 0 30px #4b0082;
-            animation: floatIcon 4s ease-in-out forwards;
+            animation: floatAndFill 6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
         }
 
-        /* Posiciones y retrasos para cada ícono */
-        .icon1 { top: 20%; left: 20%; font-size: 4rem; animation-delay: 0.5s; } /* Ancla */
-        .icon2 { top: 60%; left: 75%; font-size: 6rem; animation-delay: 1.2s; } /* Calavera */
-        .icon3 { top: 30%; left: 70%; font-size: 4.5rem; animation-delay: 1.8s; } /* Luna */
-        .icon4 { top: 70%; left: 25%; font-size: 5rem; animation-delay: 2.5s; } /* Telaraña / Hoja */
-        .icon5 { top: 40%; left: 45%; font-size: 7rem; animation-delay: 3s; } /* Diamante / Centro */
+        /* Más íconos con trayectorias más complejas */
+        .icon1 { top: 80%; left: 15%; animation-delay: 0.5s; font-size: 4rem; } /* Araña */
+        .icon2 { top: 85%; left: 80%; animation-delay: 1.0s; font-size: 5rem; } /* Calavera */
+        .icon3 { top: 20%; left: 10%; animation-delay: 1.5s; font-size: 3.5rem;} /* Flor */
+        .icon4 { top: 15%; left: 85%; animation-delay: 2.0s; font-size: 4.5rem;} /* Dragón */
+        .icon5 { top: 50%; left: 5%; animation-delay: 2.5s; font-size: 3rem; } /* Ancla */
+        .icon6 { top: 40%; left: 90%; animation-delay: 2.8s; font-size: 4rem; } /* Luna */
+        .icon7 { top: 70%; left: 50%; animation-delay: 3.2s; font-size: 6rem; transform: translateX(-50%); } /* Daga centro */
 
-        /* Animación para que los tatuajes floten y aparezcan */
-        @keyframes floatIcon {
+        @keyframes floatAndFill {
             0% {
-                transform: translateY(50px) scale(0.5) rotate(-20deg);
+                transform: translateY(100px) rotate(-30deg) scale(0.5);
                 opacity: 0;
+                -webkit-text-stroke: 1px rgba(188, 19, 254, 0.2);
             }
-            50% {
+            40% {
                 opacity: 1;
-                color: #2c0042;
-                transform: translateY(0) scale(1.2) rotate(10deg);
+                color: transparent;
+                -webkit-text-stroke: 2px rgba(188, 19, 254, 0.8);
+                text-shadow: 0 0 10px rgba(138,43,226,0.5);
+            }
+            60% {
+                color: #2c0042; /* Se llena de tinta */
+                -webkit-text-stroke: 0px;
+                transform: translateY(-20px) rotate(10deg) scale(1.2);
                 text-shadow: 0 0 20px #bc13fe, 0 0 40px #8a2be2;
             }
             100% {
-                transform: translateY(-20px) scale(1) rotate(0deg);
-                opacity: 1;
-                color: #1a1a1a;
+                transform: translateY(-150px) rotate(45deg) scale(0);
+                opacity: 0;
             }
         }
 
-        /* Animación para ocultar los tatuajes */
-        @keyframes fadeOutScene {
-            0% { opacity: 1; }
-            100% { opacity: 0; visibility: hidden; }
-        }
-
-        /* --- Estilo del Nombre Fiora --- */
-        .fiora-name {
+        /* ================= NOMBRE FIORA Y SUBTÍTULO ================= */
+        .fiora-container {
             position: absolute;
-            font-family: 'Great Vibes', cursive; /* Tipografía estilo tatuaje script */
-            font-size: 8rem;
-            color: #d1b3ff;
-            opacity: 0;
-            transform: scale(0.2);
-            /* Sombra brillante morada */
-            text-shadow: 0 0 15px #bc13fe, 0 0 30px #8a2be2, 0 0 50px #9400d3, 0 0 100px #4b0082;
-            animation: revealName 4s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-            animation-delay: 7s; /* Aparece después de que los tatuajes se van */
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
             z-index: 10;
         }
 
-        /* Animación épica para el nombre */
-        @keyframes revealName {
+        .fiora-name {
+            font-family: 'Great Vibes', cursive;
+            font-size: 9rem;
+            margin: 0;
+            line-height: 1;
+            /* Inicia invisible */
+            opacity: 0;
+            color: transparent;
+            -webkit-text-stroke: 2px rgba(255,255,255,0.1);
+            animation: drawText 2s ease forwards, neonFlash 3s 9.5s infinite alternate;
+            animation-delay: 7s; /* Aparece cuando se van los tatuajes */
+        }
+
+        .subtitle {
+            font-family: 'Cinzel', serif;
+            font-size: 1.5rem;
+            letter-spacing: 15px;
+            color: #d1b3ff;
+            opacity: 0;
+            margin-top: 10px;
+            text-transform: uppercase;
+            text-shadow: 0 0 10px #8a2be2;
+            animation: fadeInSub 2s ease forwards;
+            animation-delay: 8.5s;
+        }
+
+        /* Animación de dibujar el texto (Boceto a Neón) */
+        @keyframes drawText {
             0% {
                 opacity: 0;
-                transform: scale(0.2);
-                letter-spacing: -20px;
-                filter: blur(10px);
+                transform: scale(1.5);
+                -webkit-text-stroke: 1px rgba(138,43,226,0);
             }
             50% {
                 opacity: 1;
-                transform: scale(1.1);
-                letter-spacing: 5px;
-                filter: blur(0px);
+                color: transparent;
+                -webkit-text-stroke: 2px #bc13fe;
+                transform: scale(1);
             }
             100% {
                 opacity: 1;
+                color: #ffffff; /* Blanco brillante */
+                -webkit-text-stroke: 0px;
+                text-shadow: 0 0 20px #bc13fe, 0 0 40px #9400d3, 0 0 60px #4b0082, 0 0 80px #8a2be2;
                 transform: scale(1);
-                letter-spacing: 2px;
-                filter: blur(0px);
             }
         }
 
-        /* Partículas de polvo brillante en el fondo */
-        .particles {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background-image: radial-gradient(#8a2be2 1px, transparent 1px);
-            background-size: 50px 50px;
-            opacity: 0.1;
-            animation: drift 20s linear infinite;
+        /* Efecto de parpadeo de neón continuo */
+        @keyframes neonFlash {
+            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+                text-shadow: 0 0 20px #bc13fe, 0 0 40px #9400d3, 0 0 60px #4b0082, 0 0 100px #8a2be2;
+                color: #ffffff;
+            }
+            20%, 24%, 55% {
+                text-shadow: none;
+                color: rgba(138,43,226,0.2);
+            }
         }
 
-        @keyframes drift {
-            0% { background-position: 0 0; }
-            100% { background-position: 100px 100px; }
+        @keyframes fadeInSub {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
+
+        /* ================= RASTRO DEL MOUSE ================= */
+        .mouse-trail {
+            position: absolute;
+            pointer-events: none;
+            width: 8px;
+            height: 8px;
+            background: #bc13fe;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #bc13fe, 0 0 20px #8a2be2;
+            z-index: 9999;
+            animation: trailFade 0.8s linear forwards;
+        }
+
+        @keyframes trailFade {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(0); opacity: 0; }
+        }
+
+        /* Gotas de tinta (Partículas JS) */
+        .ink-drop {
+            position: absolute;
+            background-color: #1a001a;
+            border-radius: 50% 50% 50% 5px; /* Forma de gota */
+            transform: rotate(-45deg);
+            z-index: 1;
+            opacity: 0.6;
+            animation: dropFall linear forwards;
+        }
+
+        @keyframes dropFall {
+            0% { transform: translateY(-10px) rotate(-45deg) scale(0); opacity: 0; }
+            20% { opacity: 0.5; transform: translateY(0px) rotate(-45deg) scale(1); }
+            100% { transform: translateY(200px) rotate(-45deg) scale(0.2); opacity: 0; }
+        }
+
     </style>
 </head>
 <body>
 
-    <!-- Fondo sutil texturizado -->
-    <div class="particles"></div>
-
-    <!-- Escena inicial de los tatuajes -->
-    <div class="tattoo-scene">
-        <i class="fa-solid fa-anchor tattoo-icon icon1"></i>
-        <i class="fa-solid fa-skull-crossbones tattoo-icon icon2"></i>
-        <i class="fa-solid fa-moon tattoo-icon icon3"></i>
-        <i class="fa-solid fa-leaf tattoo-icon icon4"></i>
-        <i class="fa-regular fa-gem tattoo-icon icon5"></i>
+    <!-- Fondo de humo animado -->
+    <div class="smoke-container">
+        <div class="smoke"></div>
+        <div class="smoke"></div>
+        <div class="smoke"></div>
     </div>
 
-    <!-- Nombre Final -->
-    <div class="fiora-name">Fiora</div>
+    <!-- Anillos geométricos estilo tatuaje / mandala -->
+    <div class="geometry-ring ring-1"></div>
+    <div class="geometry-ring ring-2"></div>
+    <div class="geometry-ring ring-3"></div>
 
+    <!-- Íconos flotantes animados -->
+    <div class="tattoo-scene">
+        <i class="fa-solid fa-spider tattoo-icon icon1"></i>
+        <i class="fa-solid fa-skull-crossbones tattoo-icon icon2"></i>
+        <i class="fa-solid fa-cannabis tattoo-icon icon3"></i>
+        <i class="fa-solid fa-dragon tattoo-icon icon4"></i>
+        <i class="fa-solid fa-anchor tattoo-icon icon5"></i>
+        <i class="fa-solid fa-moon tattoo-icon icon6"></i>
+        <i class="fa-solid fa-khanda tattoo-icon icon7"></i>
+    </div>
+
+    <!-- Nombre principal y Subtítulo -->
+    <div class="fiora-container">
+        <h1 class="fiora-name">Fiora</h1>
+        <div class="subtitle">Tattoo Artist</div>
+    </div>
+
+    <!-- SCRIPT PARA INTERACTIVIDAD -->
+    <script>
+        // Rastro brillante para el Mouse
+        document.addEventListener('mousemove', function(e) {
+            if(Math.random() > 0.4) return; // No saturar
+            let trail = document.createElement('div');
+            trail.className = 'mouse-trail';
+            trail.style.left = (e.pageX - 4) + 'px';
+            trail.style.top = (e.pageY - 4) + 'px';
+            document.body.appendChild(trail);
+            setTimeout(() => { trail.remove(); }, 800);
+        });
+
+        // Gotas de tinta cayendo de fondo (Partículas)
+        function createInkDrop() {
+            let drop = document.createElement('div');
+            drop.className = 'ink-drop';
+            let size = Math.random() * 15 + 5; 
+            drop.style.width = size + 'px';
+            drop.style.height = size + 'px';
+            drop.style.left = Math.random() * 100 + 'vw';
+            drop.style.top = Math.random() * 100 + 'vh';
+            
+            let colors = ['#0a000a', '#1a0033', '#2b0042'];
+            drop.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            drop.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            document.body.appendChild(drop);
+            setTimeout(() => { drop.remove(); }, 5000);
+        }
+        setInterval(createInkDrop, 300);
+    </script>
 </body>
 </html>
